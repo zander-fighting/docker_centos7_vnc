@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  centos-desktop-vnc:
+    image: lzander/centos7_vnc
+    container_name: centos-vnc
+    privileged: true
+    ports:
+      - "5901:5901"
+      - "5902:5902"
+      - "5903:5903"
+#    ulimits:
+#      memlock: -1
+#    volumes:
+#      - /home/user/data:/data
+    environment:
+      - TZ=Asia/Shanghai
+      - LANG=zh_CN.UTF-8
+#    command: ["/opt/init/entrypoint.sh"]
