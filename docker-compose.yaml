@@ -2,7 +2,7 @@ version: "3"
 
 services:
   centos-desktop-vnc:
-    image: lzander/centos7_vnc
+    image: lzander/centos7_vnc:v01
     container_name: centos-vnc
     privileged: true
     ports:

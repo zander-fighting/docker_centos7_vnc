@@ -12,13 +12,12 @@ version: "3"
 
 services:
   centos7_vnc:
-    image: lzander/centos7_vnc
+    image: lzander/centos7_vnc:v01
     container_name: centos7_vnc
     privileged: true
     ports:
       - "5901:5901"
       - "5902:5902"
-      - "5903:5903"
     environment:
       - TZ=Asia/Shanghai
       - LANG=zh_CN.UTF-8
