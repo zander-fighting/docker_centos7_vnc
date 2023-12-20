@@ -8,7 +8,6 @@ services:
     ports:
       - "5901:5901"
       - "5902:5902"
-      - "5903:5903"
 #    ulimits:
 #      memlock: -1
 #    volumes:
