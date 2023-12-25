@@ -1,37 +1,51 @@
 #!/bin/bash
 # This script is for installing gnome desktop on CentOS 7
-# Usage: ./gnome_install.sh [UUSER] [USER_PASSWORD]
-# default setting [USER_=123456] [USER_PASSWORD=123456]
+# Usage: sudo ./gnome_install.sh
 
-# Use the parameters passed to the script, or use default values
-USER=${1:-"root"}
-USER_PASSWORD=${2:-"123456"}
+# Define some functions
+check_error() {
+  # Check the last command result, if not 0, output the error message and exit the script
+  if [ $? -ne 0 ]; then
+    printf "[ERROR]%s\n" "$1"
+    exit 1
+  fi
+}
 
-# Check if the user is root or has sudo privileges
-if [ $(id -u) -ne 0 ]; then
-  echo "You need to be root or have sudo privileges to run this script"
+print_info() {
+  # Print the information message with a prefix
+  printf "[INFO] %s\n" "$1"
+}
+
+# Check if the script is run as root, if not, prompt the user to use sudo
+if [ $EUID -ne 0 ]; then
+  print_info "Please run this script as root or use sudo"
   exit 1
 fi
 
-# Define a function to install GNOME Desktop and Graphical Administration Tools
-install_gnome() {
-  echo "Installing GNOME Desktop..."
-  yum -y groupinstall GNOME Desktop
-  # Set the default target to graphical.target
-  systemctl set-default graphical.target
-  useradd "$USER"
-  echo "$USER_PASSWORD" | passwd "$VNC_USER" --stdin
+install_packages(){
+  # Define a function to install GNOME Desktop and Graphical Administration Tools
+  print_info "Installing GNOME Desktop..."
+  yum -y groupinstall "GNOME Desktop"
+  check_error "fail to install GNOME Desktop"
+  print_info "Installing GNOME Desktop successful..."
 }
 
-# Define a function to print a success message
-print_success() {
-  # Use printf command to format the output
-  printf "GNOME Deskpot is installed and create a user %s with password %s\n" "$USER" "$USER_PASSWORD"
+set_default(){
+  # Set the default target to graphical.target
+  systemctl set-default graphical.target
+  check_error "fail to Set the default target to graphical.target"
+  print_info "Set the default target to graphical.target successful..."
 }
+
+print_successful(){
+  # Print out information on successful
+  print_info "GNOME Deskpot is installed and configure"
+}
+
 
 # Define a function to clean up on exit
 cleanup() {
-  echo "Cleaning up..."
+  print_info "Cleaning up..."
   # Add any commands to clean up here
   yum clean all
 }
@@ -40,5 +54,6 @@ cleanup() {
 trap cleanup EXIT
 
 # Call the functions
-install_gnome
-print_success
+install_packages
+set_default
+print_successful
