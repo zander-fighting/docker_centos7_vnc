@@ -6,7 +6,7 @@ This Docker image is designed to quickly build a Gnome desktop and VNC service b
 - download the files
 - use docker command to build a docker image
 ```docker
-docker build -t centos7_vnc:v01 .
+docker build -t centos7_vnc:v03 .
 ```
 
 # How to use this docker image?

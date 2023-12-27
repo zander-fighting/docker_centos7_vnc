@@ -1,22 +1,17 @@
-version: "3"
-
+version: '3'
 services:
-  centos7-vnc:
-    image: lzander/centos7_vnc:v01
-    container_name: centos_vnc
-    privileged: true
-    user: admin1
+ centos7_vnc:
+    image: lzander/centos7_vnc:v03
+    container_name: cnetos7_vnc
     ports:
-      - "22:22"
-      - "5901:5901"
-      - "5902:5902"
-#    ulimits:
-#      memlock: -1
-#    volumes:
-#      - /home/user/data:/data
-    # The command to run inside the centos7 service container
-    entrypoint: ["/opt/init/entrypoint.sh",]
+     - "22:22"
+     - "5901:5901"
+     - "5902:5902"
+    privileged: true
+    stdin_open: true
+    tty: true
     environment:
       - TZ=Asia/Shanghai
       - LANG=zh_CN.UTF-8
-    command: ["/bin/bash","-c","exec usr/sbin/init",]
+    entrypoint: ["/opt/init/entrypoint.sh"]
+    command: ["usr/sbin/init"]
