@@ -22,6 +22,12 @@ docker compose up
 - user name `admin1`
 - user password `admin1`
 
+# How to start the service
+- run the command in `docker container`
+```powershell
+docker exec -it centos7_vnc /bin/bash
+/opt/init/init.sh
+```
 # Questions
 If you have any questions. You could go to https://github.com/zander-fighting/docker_centos7_vnc
 
