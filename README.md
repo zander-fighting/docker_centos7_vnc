@@ -47,7 +47,7 @@ ps aux | grep vnc
 # If no service exists, initialize the environment
 /opt/init/init.sh
 # If a service exists, delete port 5901 and establish a VNC service for admin1
-sudo vncserver -kill :1    # Delete the use of Port 5901
+vncserver -kill :1    # Delete the use of Port 5901
 /opt/init/vnc_user_add.sh admin1 admin1 # Add vnc user with the port free
 ```
 # Questions
